@@ -394,6 +394,13 @@ git config --global --add safe.directory /usr/data/moonraker/moonraker
 - [Nik-oli](https://github.com/Nik-oli) — CFS firmware adaptations
   ([Creality-Helper-Script-K1-CFS](https://github.com/Nik-oli/Creality-Helper-Script-K1-CFS)).
 
+### AI assistance
+
+Part of this project was developed with the help of Claude (Anthropic): roughly
+30% of the QA work, the performance tests and simulations, and about 60% of the
+documentation writing. Design decisions, code review, and testing on the printer
+were done by the author.
+
 ## License
 
 This project is licensed under the GNU General Public License v3.0. See
