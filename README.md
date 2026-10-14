@@ -209,8 +209,8 @@ insert manual filament changes:
 3. With PowerScreen installed, the **MANUAL FILAMENT CHANGE** menu opens (`UNLOAD`, `LOAD`, `RESUME`, `STOP`, `CLOSE`). `LOAD` and `UNLOAD` are disabled while a print is running. Without PowerScreen, a Mainsail/Fluidd prompt is shown instead.
 4. Change the filament with the buttons and press `RESUME` to continue the print.
 
-The module does not override the CFS `RESUME`: it adds `M600_RESUME` and
-`M600_CANCEL`, which restore the fan, the idle timeout and the module state and
+The module does not override the CFS `RESUME`: it adds `FILAMENT_CHANGE_RESUME` and
+`FILAMENT_CHANGE_CANCEL`, which restore the fan, the idle timeout and the module state and
 then call the firmware commands. The automatic CFS color changes do not use `M600`.
 
 ### Creality Dynamic Logos for Fluidd

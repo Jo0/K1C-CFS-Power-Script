@@ -2,6 +2,11 @@
 
 All notable changes to the CFS Power Script. Each release on GitHub carries the entry of its version.
 
+## v1.3.9
+
+### Fixed
+- **M600 Support: the filament change menu never opened and `RESUME` paused the print again.** Klipper reads a command name as the letters before the first digits plus those digits, and everything after them as parameters. So `_M600_PROMPT` was read as `_M600` (`Unknown command:_M600`) and `M600_RESUME` / `M600_CANCEL` were read as `M600`, which ran the whole pause again. The three macros are renamed to `_FILAMENT_CHANGE_PROMPT`, `FILAMENT_CHANGE_RESUME` and `FILAMENT_CHANGE_CANCEL`, names that Klipper reads whole. Reinstall M600 Support (`[Install] Menu → 13) Install M600 Support`) and restart Klipper to get it. PowerScreen 0.37.14 and later no longer depends on these names (its buttons use `PS_RESUME` and `PS_CANCEL`).
+
 ## v1.3.8
 
 ### Added
