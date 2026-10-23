@@ -41,11 +41,9 @@ function install_m600_support(){
         else
           echo -e "Info: [idle_timeout] configurations are already disabled in printer.cfg file..."
         fi
-        if grep -q "\[filament_switch_sensor filament_sensor\]" "$PRINTER_CFG" ; then
-          echo -e "Info: Disabling [filament_switch_sensor] configurations in printer.cfg file..."
-          sed -i '/^\[filament_switch_sensor filament_sensor\]/,/^\s*$/ s/^\(\s*\)\([^#]\)/#\1\2/' "$PRINTER_CFG"
-        else
-          echo -e "Info: [filament_switch_sensor] configurations are already disabled in printer.cfg file..."
+        if grep -q "#\[filament_switch_sensor filament_sensor\]" "$PRINTER_CFG" ; then
+          echo -e "Info: Enabling [filament_switch_sensor] configurations in printer.cfg file..."
+          sed -i -e 's/^\s*#[[:space:]]*\[filament_switch_sensor filament_sensor\]/[filament_switch_sensor filament_sensor]/' -e '/^\[filament_switch_sensor filament_sensor\]/,/^\s*$/ s/^\(\s*\)#/\1/' "$PRINTER_CFG"
         fi
         echo -e "Info: Restarting Klipper service..."
         restart_klipper

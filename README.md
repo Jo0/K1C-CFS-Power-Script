@@ -204,7 +204,7 @@ Before replacing anything, the first copy of each file is saved in
 The CFS firmware does not define `M600`. This module adds it so the slicer can
 insert manual filament changes:
 
-1. Add `M600` in the slicer at the layer where the color must change (or let the filament sensor trigger it when the filament runs out).
+1. Add `M600` in the slicer at the layer where the color must change. A run-out does not trigger it: the CFS kit removes the original filament sensor, and the toolhead sensor belongs to the CFS (auto-refill or a CFS pause).
 2. The printer pauses, parks the toolhead and unloads the filament.
 3. With PowerScreen installed, the **MANUAL FILAMENT CHANGE** menu opens (`UNLOAD`, `LOAD`, `RESUME`, `STOP`, `CLOSE`). `LOAD` and `UNLOAD` are disabled while a print is running. Without PowerScreen, a Mainsail/Fluidd prompt is shown instead.
 4. Change the filament with the buttons and press `RESUME` to continue the print.
@@ -212,6 +212,10 @@ insert manual filament changes:
 The module does not override the CFS `RESUME`: it adds `FILAMENT_CHANGE_RESUME` and
 `FILAMENT_CHANGE_CANCEL`, which restore the fan, the idle timeout and the module state and
 then call the firmware commands. The automatic CFS color changes do not use `M600`.
+
+The module replaces the printer idle timeout (the stock one never fires) with 30 minutes. While a
+print is paused it never turns the motors off, so a CFS pause can still be resumed; during an
+`M600` change it only turns the hotend off (after 15 minutes), and `RESUME` heats it again.
 
 ### Creality Dynamic Logos for Fluidd
 
