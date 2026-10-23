@@ -5,8 +5,8 @@
   </picture>
   <h1>CFS Power Script for the Creality K1C</h1>
 
-  <a href="https://github.com/borferkic/K1C-CFS-Power-Script/releases/latest"><img src="https://img.shields.io/github/v/release/borferkic/K1C-CFS-Power-Script?style=flat-square&color=2ea44f" alt="Latest release" /></a>
-  <a href="https://github.com/borferkic/K1C-CFS-Power-Script/commits/main"><img src="https://img.shields.io/github/last-commit/borferkic/K1C-CFS-Power-Script?style=flat-square&color=555" alt="Last commit" /></a>
+  <a href="https://github.com/Jo0/K1C-CFS-Power-Script/releases/latest"><img src="https://img.shields.io/github/v/release/Jo0/K1C-CFS-Power-Script?style=flat-square&color=2ea44f" alt="Latest release" /></a>
+  <a href="https://github.com/Jo0/K1C-CFS-Power-Script/commits/main"><img src="https://img.shields.io/github/last-commit/Jo0/K1C-CFS-Power-Script?style=flat-square&color=555" alt="Last commit" /></a>
   <img src="https://img.shields.io/badge/Printer-Creality%20K1C-0078D6?style=flat-square" alt="Printer: Creality K1C" />
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-GPL--3.0-blue?style=flat-square" alt="License: GPL-3.0" /></a>
 </div>
@@ -61,7 +61,7 @@ Guilouz, adapted to the K1C and to the CFS firmware.
 2. Clone the script into `/usr/data/helper-script` (this exact path is required):
 
    ```sh
-   git clone --depth 1 https://github.com/borferkic/K1C-CFS-Power-Script.git /usr/data/helper-script
+   git clone --depth 1 https://github.com/Jo0/K1C-CFS-Power-Script.git /usr/data/helper-script
    ```
 
    If cloning fails with an SSL error, run this command and clone again:
