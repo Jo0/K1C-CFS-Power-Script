@@ -9,6 +9,10 @@ function usb_camera_apply(){
   cp "$USB_CAMERA_DUAL_URL" "$INITD_FOLDER"/S50usb_camera
   chmod 755 "$INITD_FOLDER"/S50usb_camera
   echo -e "Info: Installing necessary packages..."
+  # The main Entware feed no longer carries mjpg-streamer, the openK1 mirror still does
+  if ! grep -q "openk1.org" /opt/etc/opkg.conf; then
+    echo "src/gz openk1 http://www.openk1.org/static/entware/mipselsf-k3.4" >> /opt/etc/opkg.conf
+  fi
   "$ENTWARE_FILE" update && "$ENTWARE_FILE" install mjpg-streamer mjpg-streamer-input-http mjpg-streamer-input-uvc mjpg-streamer-output-http mjpg-streamer-www
   echo -e "Info: Starting service..."
   "$INITD_FOLDER"/S50usb_camera start
