@@ -2,6 +2,14 @@
 
 All notable changes to the CFS Power Script. Each release on GitHub carries the entry of its version.
 
+## Unreleased
+
+### Added
+- **Power Macros: `SET_FILAMENT_Z_DELTA` for a Z offset per material (OrcaSlicer).** With Save Z-Offset installed, `SET_GCODE_OFFSET Z=...` in the filament start G-code is saved to `variables.cfg` as the new baseline, so a per-material offset fought the calibrated one and survived restarts. `SET_FILAMENT_Z_DELTA DELTA=<mm>` sets the live offset to the saved baseline plus the delta through `_SET_GCODE_OFFSET`, without saving anything. See *Z offset per material* in the README.
+
+### Changed
+- **Power Macros: `END_PRINT_NO_M84` restores the saved Z offset** (or 0 when none is saved) when a print ends, so the delta of one material does not carry over to the next print. Reinstall the Power Macros (`[Install] Menu → 6`) to get it.
+
 ## v1.3.9
 
 ### Fixed

@@ -162,6 +162,24 @@ Requirement: *Klipper Gcode Shell Command* must be installed (`RELOAD_CAMERA` ne
 </p>
 
 `CAMERA_OFF` stops the camera service (`cam_app` and `mjpg_streamer`) and `CAMERA_ON` starts it again, from the Fluidd *Macros* panel, the console, or the **camera icon at the top right of the PowerScreen title bar** (next to the Wi-Fi icon and the clock): tap it to switch. The picture above shows the icon with the camera **off** (crossed out); with the camera on it is green and without the cross. PowerScreen asks for confirmation if you turn the camera off while printing. While the camera is off it stops using the USB hub it shares with the CFS adapter, which is useful to check whether the video traffic has to do with the CFS disconnections, and there are no timelapse photos. The camera comes back on its own after a restart of the printer. To get these macros on a printer that already has the Power Macros, install them again (`[Install] Menu → 6`).
+#### Z offset per material (OrcaSlicer)
+
+Different materials often need a slightly different Z offset (PETG sits higher than PLA, for example). Orca can set it in the filament start G-code, but with *Save Z-Offset Macros* installed `SET_GCODE_OFFSET Z=...` is the wrong command for that: the macro wraps it and **saves every value to `variables.cfg`** as your new baseline. A per-material value sent that way overwrites the Z offset you calibrated, the next print starts from the wrong baseline, and the value is reloaded after every Klipper restart.
+
+The Power Macros add `SET_FILAMENT_Z_DELTA` for this:
+
+- `SET_FILAMENT_Z_DELTA DELTA=-0.02` sets the live Z offset to **your saved baseline + DELTA**. It calls the original `_SET_GCODE_OFFSET` directly, so nothing is written to `variables.cfg`.
+- `END_PRINT_NO_M84` puts the live offset back to the saved baseline (or 0 if none is saved) when a print ends, so a material's delta never carries over to the next print.
+- Your baseline is still adjusted as before (Fluidd/PowerScreen Z-offset buttons, `SET_GCODE_OFFSET`, `Z_ADJUST`), and the delta is always applied on top of it.
+
+In Orca, go to *Filament settings → Advanced → Filament start G-code* and add, with the delta for that material (negative lowers the nozzle, closer to the bed):
+
+```gcode
+SET_FILAMENT_Z_DELTA DELTA=0.05
+```
+
+Requirement: *Save Z-Offset Macros* (`[Install] Menu → 11`) must be installed, because it provides `_SET_GCODE_OFFSET`. Do not use `SET_GCODE_OFFSET` in the filament G-code. Reinstall the Power Macros (`[Install] Menu → 6`) to get this macro.
+
 Before replacing anything, the first copy of each file is saved in
 `/usr/data/helper-script-backup/power-config/` and is never overwritten.
 `[Remove] Menu → 6) Remove Power Macros` restores those originals.
