@@ -7,6 +7,10 @@ All notable changes to the CFS Power Script. Each release on GitHub carries the 
 ### Added
 - **Power Macros: `SET_FILAMENT_Z_DELTA` for a Z offset per material (OrcaSlicer).** With Save Z-Offset installed, `SET_GCODE_OFFSET Z=...` in the filament start G-code is saved to `variables.cfg` as the new baseline, so a per-material offset fought the calibrated one and survived restarts. `SET_FILAMENT_Z_DELTA DELTA=<mm>` sets the live offset to the saved baseline plus the delta through `_SET_GCODE_OFFSET`, without saving anything. See *Z offset per material* in the README.
 
+### Fixed
+- **Power Macros and KAMP: the bed no longer cools to 50 °C before the bed mesh.** In the CFS firmware `CX_NOZZLE_CLEAR` no longer uses the bed temperature given to `CX_ROUGH_G28` (the non-CFS firmware does) and falls back to `default_bed_temp` (50), so `START_PRINT` made a 100 °C bed cool to about 55 °C before the mesh and heat again afterwards. `START_PRINT` now calls `CX_NOZZLE_CLEAR BED_TEMP={bed_temp}`. Reinstall the Power Macros (`[Install] Menu → 6`) and KAMP (`[Install] Menu → 8`) to get it.
+- **KAMP: the classic purge line no longer resets the bed and nozzle to the defaults.** `CX_PRINT_DRAW_ONE_LINE` was called without temperatures (in `ADAPT_PURGE_MOD` and when the adaptive purge line falls back to the classic one), and the CFS firmware then sent `M140 S50` and heated the nozzle to `default_extruder_temp` (240). It now receives the targets `START_PRINT` already set. Reinstall KAMP (`[Install] Menu → 8`) to get it.
+
 ### Changed
 - **Power Macros: `END_PRINT_NO_M84` restores the saved Z offset** (or 0 when none is saved) when a print ends, so the delta of one material does not carry over to the next print. Reinstall the Power Macros (`[Install] Menu → 6`) to get it.
 

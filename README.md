@@ -180,6 +180,10 @@ SET_FILAMENT_Z_DELTA DELTA=0.05
 
 Requirement: *Save Z-Offset Macros* (`[Install] Menu → 11`) must be installed, because it provides `_SET_GCODE_OFFSET`. Do not use `SET_GCODE_OFFSET` in the filament G-code. Reinstall the Power Macros (`[Install] Menu → 6`) to get this macro.
 
+#### Bed temperature during the nozzle clean
+
+Before the bed mesh, `START_PRINT` runs `CX_NOZZLE_CLEAR`. In the CFS firmware that command ignores the bed temperature given to `CX_ROUGH_G28` and uses `default_bed_temp` from `printer_params.cfg` (50) instead, so with a hot bed (ABS/ASA at 100 °C) the printer waited for the bed to cool to about 55 °C before the mesh and then heated it again. The non-CFS firmware does not do this (its `CX_NOZZLE_CLEAR` uses the temperature of the print). The Power Macros and KAMP `START_PRINT` now call `CX_NOZZLE_CLEAR BED_TEMP={bed_temp}`, so the bed stays at the temperature of the print. If you prefer the Creality behavior, remove `BED_TEMP={bed_temp}` from that line. The same applies to the classic purge line of KAMP: `CX_PRINT_DRAW_ONE_LINE` now receives the bed and nozzle targets that `START_PRINT` already set, instead of the 50 °C bed and 240 °C nozzle defaults.
+
 Before replacing anything, the first copy of each file is saved in
 `/usr/data/helper-script-backup/power-config/` and is never overwritten.
 `[Remove] Menu → 6) Remove Power Macros` restores those originals.
