@@ -13,6 +13,7 @@ All notable changes to the CFS Power Script. Each release on GitHub carries the 
 - **KAMP: the classic purge line no longer resets the bed and nozzle to the defaults.** `CX_PRINT_DRAW_ONE_LINE` was called without temperatures (in `ADAPT_PURGE_MOD` and when the adaptive purge line falls back to the classic one), and the CFS firmware then sent `M140 S50` and heated the nozzle to `default_extruder_temp` (240). It now receives the targets `START_PRINT` already set. Reinstall KAMP (`[Install] Menu → 8`) to get it.
 
 ### Changed
+- **Power Macros: `PS_NOCFS_LOAD_FILAMENT` raises Z to 100 (was 30) and heats the nozzle to 240 °C (was 220 °C) before loading.** The Z move still only happens when the toolhead is below Z100. Reinstall the Power Macros (`[Install] Menu → 6`) to get it.
 - **Power Macros: `END_PRINT_NO_M84` restores the saved Z offset** (or 0 when none is saved) when a print ends, so the delta of one material does not carry over to the next print. Reinstall the Power Macros (`[Install] Menu → 6`) to get it.
 
 ## v1.3.9
